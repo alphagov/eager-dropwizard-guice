@@ -51,12 +51,11 @@ def dependencyVersions = [
 ]
 
 group = "uk.gov.verify"
-version = "0.0.1-SNAPSHOT"
 
 dependencies {
-    compile 'com.hubspot.dropwizard:dropwizard-guice:$dependencyVersions.0'
+    compile "com.hubspot.dropwizard:dropwizard-guice:${dependencyVersions.dropwizard}.0"
 
-    testCompile 'io.dropwizard:dropwizard-testing:$dependencyVersions.dropwizard'
+    testCompile "io.dropwizard:dropwizard-testing:${dependencyVersions.dropwizard}"
 }
 
 publishing {
