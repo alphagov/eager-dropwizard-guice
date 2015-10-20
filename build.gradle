@@ -16,8 +16,8 @@ apply plugin: 'maven-publish'
 
 idea {
     project {
-        jdkName = '1.7'
-        languageLevel = '1.7'
+        jdkName = '1.8'
+        languageLevel = '1.8'
     }
     module {
         //if you love browsing Javadoc
@@ -34,8 +34,8 @@ repositories {
 
 idea {
     project {
-        jdkName = '1.7'
-        languageLevel = '1.7'
+        jdkName = '1.8'
+        languageLevel = '1.8'
     }
     module {
         //if you love browsing Javadoc
@@ -55,7 +55,8 @@ group = "uk.gov.verify"
 dependencies {
     compile "com.hubspot.dropwizard:dropwizard-guice:${dependencyVersions.dropwizard}.0"
 
-    testCompile "io.dropwizard:dropwizard-testing:${dependencyVersions.dropwizard}"
+    testCompile "io.dropwizard:dropwizard-testing:${dependencyVersions.dropwizard}",
+            "io.dropwizard:dropwizard-client:${dependencyVersions.dropwizard}"
 }
 
 publishing {
@@ -78,4 +79,13 @@ publishing {
 
 task sourceJar(type: Jar) {
     from sourceSets.main.allJava
+} 
+
+configurations.all {
+  resolutionStrategy {
+    forcedModules= [
+      "io.dropwizard:dropwizard-core:${dependencyVersions.dropwizard}",
+    ]
+  }
 }
+    
