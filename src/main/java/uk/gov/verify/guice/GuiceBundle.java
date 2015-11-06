@@ -3,6 +3,7 @@ package uk.gov.verify.guice;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.Stage;
 import com.hubspot.dropwizard.guice.JerseyModule;
 import com.hubspot.dropwizard.guice.JerseyUtil;
 import io.dropwizard.Configuration;
@@ -33,7 +34,7 @@ public class GuiceBundle<T extends Configuration> implements ConfiguredBundle<T>
 
     @Override
     public void run(T configuration, Environment environment) {
-        injector = Guice.createInjector(getModules(configuration, environment));
+        injector = Guice.createInjector(Stage.PRODUCTION, getModules(configuration, environment));
         JerseyUtil.registerGuiceBound(injector, environment.jersey());
         JerseyUtil.registerGuiceFilter(environment);
     }

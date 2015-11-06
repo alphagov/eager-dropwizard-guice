@@ -7,10 +7,12 @@ import com.squarespace.jersey2.guice.BootstrapUtils;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit.DropwizardAppRule;
+import io.dropwizard.util.Duration;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -89,7 +91,9 @@ public class GuiceBundleTest {
 
     @Test
     public void shouldReturnTheValueBoundUsingTheGuiceInjector() throws Exception {
-        Client client = new JerseyClientBuilder(APP_RULE.getEnvironment()).build("client");
+        JerseyClientConfiguration configuration = new JerseyClientConfiguration();
+        configuration.setTimeout(Duration.seconds(5));
+        Client client = new JerseyClientBuilder(APP_RULE.getEnvironment()).using(configuration).build("client");
         String receivedValue = client.target("http://localhost:" + APP_RULE.getLocalPort() + "/injector").request().get(String.class);
         assertThat(receivedValue).isEqualTo(SOME_VALUE);
     }
