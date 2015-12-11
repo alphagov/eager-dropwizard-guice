@@ -8,7 +8,7 @@
  */
 
 plugins {
-  id 'net.researchgate.release' version '2.2.2'
+  id 'net.researchgate.release' version '2.3.4'
 }
 apply plugin: 'java'
 apply plugin: 'idea'
